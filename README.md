@@ -1,1 +1,1 @@
-# NWTIS
+# NWTIS laboratorijske vježbe
