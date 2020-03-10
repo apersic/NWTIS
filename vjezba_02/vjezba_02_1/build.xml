@@ -1,0 +1,23 @@
+<project name="vjezba_02_1" default="pripremi" basedir=".">
+    <property name="src.home" value="${basedir}/src"/>
+    <property name="build.home" value="${basedir}/build"/>
+    <property name="lib.home" value="${basedir}/lib"/>
+    <property name="classes.home" value="${build.home}/classes"/>
+    <property name="dist.home" value="${basedir}/dist"/>
+
+    <target name="pripremi" depends="">
+        <mkdir dir="${src.home}"/>
+        <mkdir dir="${lib.home}"/>
+        <mkdir dir="${build.home}"/>
+        <mkdir dir="${classes.home}"/>
+        <mkdir dir="${dist.home}"/>
+    </target>
+
+    <target name="obrisi" depends="">
+        <delete dir="${dist.home}" includeEmptyDirs="true"/>
+        <delete dir="${classes.home}" includeEmptyDirs="true"/>
+        <delete dir="${build.home}" includeEmptyDirs="true"/>
+    </target>
+    
+    <path id="compile.classpath"><fileset dir="${lib.home}"><include name="*.jar"/></fileset></path><target name="kompiliraj" depends="pripremi"><javac srcdir="${src.home}" destdir="${classes.home}" includeantruntime="true"><classpath refid="compile.classpath"/></javac></target><target name="isporuka" depends="kompiliraj"><jar destfile="${dist.home}/${ant.project.name}.jar" basedir="${classes.home}">          <fileset dir="${lib.home}"/></jar></target><target name="argumenti" unless="args" description="Unos argumenata"><input addProperty="args" message="Upiši argumente:"/></target><target name="izvrsi" depends="isporuka, argumenti">       <java classname="org.foi.nwtis.apersic.Vjezba_02_1">            <arg line="${args}"/><classpath refid="compile.classpath"/><classpath><pathelement location="${dist.home}/${ant.project.name}.jar"/><pathelement path="${java.class.path}"/>   </classpath>       </java></target>
+</project>
